@@ -3,4 +3,4 @@ name: tokenconverter
 ---
 PageController:
   extensions:
-  - TokenControllerExtension
+  - Dexven\TokenConverter\Extensions\TokenControllerExtension
