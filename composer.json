@@ -1,8 +1,8 @@
 {
-  "name": "dexven/facebook-key-converter",
+  "name": "dexven/facebook-token-converter",
   "description": "Allows creation of long-lived Facebook access tokens to be used in the display of social media feeds.",
   "type": "silverstripe-vendormodule",
-  "homepage": "https://github.com/Dexven/facebook-key-converter",
+  "homepage": "https://github.com/Dexven/facebook-token-converter",
   "keywords": [
       "silverstripe",
       "module",
@@ -11,7 +11,7 @@
   ],
   "license": "BSD-3-Clause",
   "support": {
-      "issues": "https://github.com/Dexven/facebook-key-converter/issues"
+      "issues": "https://github.com/Dexven/facebook-token-converter/issues"
   },
   "require": {
       "silverstripe/framework": "^4",
@@ -22,11 +22,11 @@
       "squizlabs/php_codesniffer": "^3.0"
   },
   "extra": {
-      "installer-name": "facebook-key-converter"
+      "installer-name": "facebook-token-converter"
   },
   "autoload": {
       "psr-4": {
-          "Dexven\\KeyConverter\\": "src/"
+          "Dexven\\TokenConverter\\": "src/"
       }
   },
   "prefer-stable": true,

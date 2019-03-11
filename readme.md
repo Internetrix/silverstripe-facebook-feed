@@ -1,9 +1,9 @@
-# Facebook Key Converter
+# SilverStripe / Facebook Token Converter
 
 
 ## Introduction
 
-Allows creation of a Facebook feed by converting access tokens into long lived and permanent access tokens. 
+Allows creation of a Facebook feeds in SilverStripe by converting access tokens into long lived and permanent access tokens. 
 
 ## Requirements
 * SilverStripe CMS ^4
@@ -11,7 +11,7 @@ Allows creation of a Facebook feed by converting access tokens into long lived a
 ## Installation
 
 ```
-composer require dexven/facebook-key-converter
+composer require dexven/facebook-token-converter
 ```
 
 

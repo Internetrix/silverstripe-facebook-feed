@@ -1,6 +1,6 @@
 <?php
 
-namespace Dexven\KeyConverter\Model;
+namespace Dexven\TokenConverter\Model;
 
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Dev\Debug;
