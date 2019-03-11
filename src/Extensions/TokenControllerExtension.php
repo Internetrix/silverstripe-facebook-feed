@@ -16,7 +16,7 @@ class TokenControllerExtension extends DataExtension
     {
         $facebookFeed = FacebookFeed::get_by_id($feedID);
 
-        if ($facebookFeed) {
+        if (count($facebookFeed) != 0) {
             $url = 'https://graph.facebook.com/v3.2/' . $facebookFeed->UserID . '/feed?fields=from,permalink_url,full_picture,message,created_time&limit=50&access_token=' . $facebookFeed->PermanentAccessToken;
 
             $client = new Client();
@@ -60,9 +60,6 @@ class TokenControllerExtension extends DataExtension
 
                 return $posts;
             }
-        } else {
-            user_error('No feed exists with that ID.', E_USER_WARNING);
-            return;
         }
     }
 }
