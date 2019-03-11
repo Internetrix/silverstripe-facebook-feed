@@ -19,13 +19,18 @@ composer require dexven/facebook-token-converter
 ## Quickstart
 
 ````
+// Adding to a class
 private static $has_one = [
     'FacebookFeed' => FacebookFeed::class,
 ];
 
 
 // As a CMS field
-DropdownField::create('FacebookFeedID', 'Select Feed:', FacebookFeed::get())
+DropdownField::create('FacebookFeedID','Select a feed:', FacebookFeed::get()->map('ID', 'Title'))
+
+
+// Calling the Feed in the template
+$GetFacebookFeed($FacebookFeedID)
 
 ````
 
