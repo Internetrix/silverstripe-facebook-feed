@@ -4,6 +4,7 @@ namespace Dexven\KeyConverter\Model;
 
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Dev\Debug;
+use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\HeaderField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\ORM\DataObject;
@@ -20,12 +21,17 @@ class FacebookFeed extends DataObject
         'LongAccessToken'       => 'Text',
         'PermanentAccessToken'  => 'Text',
         'PublicToken'           => 'Text',
-        'SecretToken'           => 'Text'
+        'SecretToken'           => 'Text',
+        'RegenerateToken'       => 'Boolean'
     ];
 
     private static $summary_fields = [
         'Title' 	            => 'Feed',
         'UserID'                => 'User ID'
+    ];
+
+    private static $defaults = [
+        'RegenerateToken' 	    => true
     ];
 
     private static $has_one = [
@@ -36,6 +42,10 @@ class FacebookFeed extends DataObject
     {
         $fields = parent::getCMSFields();
         $fields->removeByName('Parent');
+
+        $fields->addFieldToTab('Root.Main', LiteralField::create('DetailsHeader', '<h1>App Details</h1>'), 'Title');
+        $fields->addFieldToTab('Root.Main', LiteralField::create('Description', '<p class="message">These details can be acquired
+        by creating an app on Facebook. Do so here: <a href="https://developers.facebook.com/apps/">developers.facebook.com/apps/</a><br>'), 'Title');
 
         $fields->addFieldsToTab('Root.Main', [
             TextField::create('Title'),
@@ -49,19 +59,35 @@ class FacebookFeed extends DataObject
         ], 'ShortAccessToken');
 
         $fields->addFieldToTab('Root.Main', LiteralField::create('TokenHeader', '</br><h1>Access Tokens</h1>'), 'ShortAccessToken');
+        $fields->addFieldToTab('Root.Main', LiteralField::create('Warning', '<p class="message warning">The Short Access Token has a limit of 2 hours, 
+        while the Long Access Token has a limit of 2 months. Make sure to replace them when you need to regenerate the tokens.<br>'), 'ShortAccessToken');
 
         $fields->addFieldsToTab('Root.Main', [
             TextareaField::create('ShortAccessToken'),
-            TextareaField::create('LongAccessToken')->setDescription('This is automatically generated. Leave this field blank.'),
-            TextareaField::create('PermanentAccessToken')->setDescription('This is automatically generated. Leave this field blank.'),
+            TextareaField::create('LongAccessToken')->setDescription('This is automatically generated.'),
+            TextareaField::create('PermanentAccessToken')->setDescription('This is automatically generated.'),
+            CheckboxField::create('RegenerateToken', 'Regenerate Token')
         ]);
+
+        $fields->addFieldToTab('Root.Main', LiteralField::create('CheckWarning', '<p class="message warning">Check this box each time you wish to regenerate the Long and Permanent tokens.'), 'RegenerateToken');
 
         return $fields;
     }
 
-    public function getLongAccessToken()
+    public function onBeforeWrite()
     {
-        if ($this->PublicToken && $this->SecretToken && $this->ShortAccessToken) {
+        parent::onBeforeWrite();
+
+        if ($this->RegenerateToken == true) {
+            $this->LongAccessToken = $this->CreateLongAccessToken();
+            $this->PermanentAccessToken = $this->CreatePermanentAccessToken();
+            $this->RegenerateToken = false;
+        }
+    }
+
+    public function CreateLongAccessToken()
+    {
+        if ($this->ID && $this->PublicToken && $this->SecretToken && $this->ShortAccessToken) {
             $url = "https://graph.facebook.com/oauth/access_token?client_id=" . $this->PublicToken . "&client_secret=" . $this->SecretToken . "&grant_type=fb_exchange_token&fb_exchange_token=" . $this->ShortAccessToken;
 
             $client = new Client();
@@ -86,9 +112,9 @@ class FacebookFeed extends DataObject
         }
     }
 
-    public function getPermanentAccessToken()
+    public function CreatePermanentAccessToken()
     {
-        if ($this->Title && $this->LongAccessToken) {
+        if ($this->ID && $this->LongAccessToken) {
             $url = "https://graph.facebook.com/me/accounts?access_token=" . $this->LongAccessToken;
 
             $service = new Client();
