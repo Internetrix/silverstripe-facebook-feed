@@ -1,0 +1,6 @@
+---
+name: tokenconverter
+---
+PageController:
+  extensions:
+  - TokenControllerExtension

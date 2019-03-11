@@ -2,15 +2,16 @@
 
 namespace Dexven\TokenConverter\Model;
 
-use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Dev\Debug;
 use SilverStripe\Forms\CheckboxField;
-use SilverStripe\Forms\HeaderField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\TextareaField;
 use GuzzleHttp\Client;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\View\ArrayData;
+use SilverStripe\ORM\FieldType\DBField;
 
 class FacebookFeed extends DataObject
 {
@@ -121,10 +122,10 @@ class FacebookFeed extends DataObject
             $options = [CURLOPT_SSL_VERIFYPEER => false];
             $response = $service->request('GET', $url, $options);
 
-            $facebook = json_decode($response->getBody(), true);
+            $feed = json_decode($response->getBody(), true);
 
-            if (!isset($facebook)) {
-                if (empty($facebook)) {
+            if (!isset($feed)) {
+                if (empty($feed)) {
                     user_error('Response empty. API may have changed.', E_USER_WARNING);
                     return;
                 } else {
@@ -132,7 +133,7 @@ class FacebookFeed extends DataObject
                     return;
                 }
             } else {
-                foreach ($facebook['data'] as $data) {
+                foreach ($feed['data'] as $data) {
                     if ($data['id'] == $this->UserID) {
                         return $data['access_token'];
                     }
