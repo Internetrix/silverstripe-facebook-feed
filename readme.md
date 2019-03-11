@@ -3,7 +3,9 @@
 
 ## Introduction
 
-Allows creation of a Facebook feeds in SilverStripe by converting access tokens into long lived and permanent access tokens. 
+Allows creation of Facebook feeds in SilverStripe by converting access tokens into long lived and permanent access tokens. 
+
+If you would like to view how this process works, please visit: https://stackoverflow.com/questions/12168452/long-lasting-fb-access-token-for-server-to-pull-fb-page-info
 
 ## Requirements
 * SilverStripe CMS ^4
@@ -23,7 +25,7 @@ private static $has_one = [
 
 
 // As a CMS field
-DropdownField::create('FacebookFeedID','Select Feed: ', FacebookFeed::get())
+DropdownField::create('FacebookFeedID', 'Select Feed:', FacebookFeed::get())
 
 ````
 
