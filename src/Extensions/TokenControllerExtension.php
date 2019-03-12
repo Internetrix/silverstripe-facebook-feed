@@ -48,7 +48,7 @@ class TokenControllerExtension extends DataExtension
                     $posts->push(ArrayData::create([
                         'User' => $data['from']['name'],
                         'Link' => "https://www.facebook.com/{$data['from']['id']}/posts/{$objectid}",
-                        'ProfileLink' => 'https://www.facebook.com/' . $data['from']['name'],
+                        'ProfileLink' => 'https://www.facebook.com/' . $facebookFeed->UserID,
                         'Image' => isset($data['full_picture']) ? $data['full_picture'] : '',
                         'Message' => DBField::create_field('Text', $data['message']),
                         'Posted' => DBField::create_field(
