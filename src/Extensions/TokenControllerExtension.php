@@ -21,16 +21,29 @@ class TokenControllerExtension extends DataExtension
 
             $client = new Client();
             $options = [CURLOPT_SSL_VERIFYPEER => false];
-            $response = $client->request('GET', $url, $options);
+
+            try {
+                $response = $client->request('GET', $url, $options);
+            }
+            catch (\GuzzleHttp\Exception\ClientException $e) {
+                $response = $e->getResponse();
+                $responseString = $response->getBody()->getContents();
+            }
+            catch (\GuzzleHttp\Exception\RequestException $e) {
+                $response = $e->getResponse();
+                $responseString = $response->getBody()->getContents();
+            }
 
             $feed = json_decode($response->getBody(), true);
 
             if (!isset($feed['data'])) {
                 if (empty($feed)) {
-                    user_error('Response empty. API may have changed.', E_USER_WARNING);
+                    //user_error('Response empty. API may have changed.', E_USER_WARNING);
+                    echo "<script>console.log( 'Response empty. API may have changed.' );</script>";
                     return;
                 } else {
-                    user_error('Facebook message error or API changed', E_USER_WARNING);
+                    //user_error('Facebook message error or API changed', E_USER_WARNING);
+                    echo "<script>console.log( 'Facebook message error or API changed.' );console.log(" . $responseString . ");</script>";
                     return;
                 }
             } else {
