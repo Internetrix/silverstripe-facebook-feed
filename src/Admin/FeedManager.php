@@ -11,6 +11,8 @@ class FeedManager extends ModelAdmin
 
     private static $url_segment = 'facebook-feeds';
 
+    private static $menu_icon_class = 'font-icon-picture';
+
     private static $managed_models = [
         FacebookFeed::class
     ];
