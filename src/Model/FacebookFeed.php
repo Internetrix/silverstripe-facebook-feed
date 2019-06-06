@@ -13,6 +13,10 @@ use SilverStripe\ORM\ArrayList;
 use SilverStripe\View\ArrayData;
 use SilverStripe\ORM\FieldType\DBField;
 
+/**
+ * Class FacebookFeed
+ * @package Dexven\TokenConverter\Model
+ */
 class FacebookFeed extends DataObject
 {
     private static $db = [
@@ -25,6 +29,8 @@ class FacebookFeed extends DataObject
         'SecretToken'           => 'Text',
         'RegenerateToken'       => 'Boolean'
     ];
+
+    private static $table_name = 'TokenConverter_FacebookFeed';
 
     private static $summary_fields = [
         'Title' 	            => 'Feed',
@@ -75,6 +81,9 @@ class FacebookFeed extends DataObject
         return $fields;
     }
 
+    /**
+     * Ensures the tokens are generated with the currently saved details
+     */
     public function onBeforeWrite()
     {
         parent::onBeforeWrite();
@@ -86,6 +95,9 @@ class FacebookFeed extends DataObject
         }
     }
 
+    /**
+     * Creates a long lived token (lifespan of 60 days)
+     */
     public function CreateLongAccessToken()
     {
         if ($this->ID && $this->PublicToken && $this->SecretToken && $this->ShortAccessToken) {
@@ -113,6 +125,9 @@ class FacebookFeed extends DataObject
         }
     }
 
+    /**
+     * Creates a permanent access token (no expiry)
+     */
     public function CreatePermanentAccessToken()
     {
         if ($this->ID && $this->LongAccessToken) {

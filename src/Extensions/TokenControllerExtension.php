@@ -3,13 +3,16 @@
 namespace Dexven\TokenConverter\Extensions;
 
 use Dexven\TokenConverter\Model\FacebookFeed;
-use SilverStripe\Dev\Debug;
 use SilverStripe\ORM\DataExtension;
 use GuzzleHttp\Client;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\View\ArrayData;
 use SilverStripe\ORM\FieldType\DBField;
 
+/**
+ * Class TokenControllerExtension
+ * @package Dexven\TokenConverter\Extensions
+ */
 class TokenControllerExtension extends DataExtension
 {
     public function GetFacebookFeed($feedID)
