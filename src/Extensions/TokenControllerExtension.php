@@ -19,7 +19,7 @@ class TokenControllerExtension extends DataExtension
     {
         $facebookFeed = FacebookFeed::get_by_id($feedID);
 
-        if (count($facebookFeed) != 0) {
+        if ($facebookFeed) {
             $url = 'https://graph.facebook.com/v3.2/' . $facebookFeed->UserID . '/feed?fields=from,permalink_url,full_picture,message,created_time&limit=50&access_token=' . $facebookFeed->PermanentAccessToken;
 
             $client = new Client();
