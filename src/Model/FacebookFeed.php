@@ -4,10 +4,13 @@ namespace Dexven\FacebookFeed\Model;
 
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\LiteralField;
+use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\TextareaField;
 use GuzzleHttp\Client;
+use SilverStripe\ORM\FieldType\DBField;
+use SilverStripe\View\ArrayData;
 
 /**
  * Class FacebookFeed
@@ -37,9 +40,13 @@ class FacebookFeed extends DataObject
         'RegenerateToken' 	    => true
     ];
 
-    private static $has_one = [
-        'Parent'                => DataObject::class
-    ];
+//    private static $has_one = [
+//        'Parent'                => DataObject::class
+//    ];
+
+//    private static $has_many = [
+//        'Parents'               => DataObject::class
+//    ];
 
     public function getCMSFields()
     {
@@ -154,4 +161,66 @@ class FacebookFeed extends DataObject
 
         return null;
     }
+
+    public function getFeed()
+    {
+        $url = 'https://graph.facebook.com/v3.2/' . $this->UserID . '/feed?fields=from,permalink_url,full_picture,message,created_time&limit=50&access_token=' . $this->PermanentAccessToken;
+
+        $client = new Client();
+        $options = [
+            CURLOPT_SSL_VERIFYPEER => false
+        ];
+
+        try {
+            $response = $client->request('GET', $url, $options);
+        }
+        catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response = $e->getResponse();
+            $responseString = $response->getBody()->getContents();
+        }
+        catch (\GuzzleHttp\Exception\RequestException $e) {
+            $response = $e->getResponse();
+            $responseString = $response->getBody()->getContents();
+        }
+
+        $feed = json_decode($response->getBody(), true);
+
+        if (!isset($feed['data'])) {
+            if (empty($feed)) {
+                //user_error('Response empty. API may have changed.', E_USER_WARNING);
+                echo "<script>console.log( 'Response empty. API may have changed.' );</script>";
+                return;
+            } else {
+                //user_error('Facebook message error or API changed', E_USER_WARNING);
+                echo "<script>console.log( 'Facebook message error or API changed.' );console.log(" . $responseString . ");</script>";
+                return;
+            }
+        } else {
+            $posts = ArrayList::create();
+
+            foreach ($feed['data'] as $data) {
+                if (!isset($data['id']) || !isset($data['message'])) {
+                    continue;
+                }
+
+                $posted = date_parse($data['created_time']);
+                $objectid = preg_replace("/^.*?_/i", "", $data['id']);
+
+                $posts->push(ArrayData::create([
+                    'User'          => $data['from']['name'],
+                    'Link'          => "https://www.facebook.com/{$data['from']['id']}/posts/{$objectid}",
+                    'ProfileLink'   => 'https://www.facebook.com/' . $this->UserID,
+                    'Image'         => isset($data['full_picture']) ? $data['full_picture'] : '',
+                    'Message'       => DBField::create_field('Text', $data['message']),
+                    'Posted'        => DBField::create_field(
+                        'Datetime',
+                        $posted['year'] . '-' . $posted['month'] . '-' . $posted['day'] . ' ' . $posted['hour'] . ':' . $posted['minute'] . ':' . $posted['second']
+                    ),
+                ]));
+            }
+
+            return $posts;
+        }
+    }
+
 }
