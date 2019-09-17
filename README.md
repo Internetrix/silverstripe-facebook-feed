@@ -1,4 +1,4 @@
-# SilverStripe / Facebook Token Converter
+# SilverStripe Facebook Feed
 
 
 ## Introduction
@@ -13,7 +13,7 @@ If you would like to view how this process works, please visit: https://stackove
 ## Installation
 
 ```
-composer require dexven/facebook-token-converter
+composer require dexven/silverstripe-facebook-feed
 ```
 
 ## Quickstart

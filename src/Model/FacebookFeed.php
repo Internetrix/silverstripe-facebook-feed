@@ -1,21 +1,17 @@
 <?php
 
-namespace Dexven\TokenConverter\Model;
+namespace Dexven\FacebookFeed\Model;
 
-use SilverStripe\Dev\Debug;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\TextareaField;
 use GuzzleHttp\Client;
-use SilverStripe\ORM\ArrayList;
-use SilverStripe\View\ArrayData;
-use SilverStripe\ORM\FieldType\DBField;
 
 /**
  * Class FacebookFeed
- * @package Dexven\TokenConverter\Model
+ * @package Dexven\FacebookFeed\Model
  */
 class FacebookFeed extends DataObject
 {
@@ -30,7 +26,7 @@ class FacebookFeed extends DataObject
         'RegenerateToken'       => 'Boolean'
     ];
 
-    private static $table_name = 'TokenConverter_FacebookFeed';
+    private static $table_name = 'FacebookFeed_FacebookFeed';
 
     private static $summary_fields = [
         'Title' 	            => 'Feed',
@@ -120,9 +116,9 @@ class FacebookFeed extends DataObject
             } else {
                 return $feed['access_token'];
             }
-        } else {
-            return;
         }
+
+        return null;
     }
 
     /**
@@ -155,5 +151,7 @@ class FacebookFeed extends DataObject
                 }
             }
         }
+
+        return null;
     }
 }

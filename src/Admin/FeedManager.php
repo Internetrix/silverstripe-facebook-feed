@@ -1,8 +1,8 @@
 <?php
 
-namespace Dexven\TokenConverter\Admin;
+namespace Dexven\FacebookFeed\Admin;
 
-use Dexven\TokenConverter\Model\FacebookFeed;
+use Dexven\FacebookFeed\Model\FacebookFeed;
 use SilverStripe\Admin\ModelAdmin;
 
 class FeedManager extends ModelAdmin

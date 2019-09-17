@@ -1,6 +1,0 @@
----
-name: tokenconverter
----
-PageController:
-  extensions:
-  - Dexven\TokenConverter\Extensions\TokenControllerExtension
