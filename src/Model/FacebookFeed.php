@@ -164,7 +164,9 @@ class FacebookFeed extends DataObject
 
     public function getFeed()
     {
-        $url = 'https://graph.facebook.com/v3.2/' . $this->UserID . '/feed?fields=from,permalink_url,full_picture,message,created_time&limit=50&access_token=' . $this->PermanentAccessToken;
+        $url = 'https://graph.facebook.com/v4.0/' . $this->UserID . '/feed?fields=from,permalink_url,full_picture,message,created_time,place,to&limit=50&access_token=' . $this->PermanentAccessToken;
+
+        $this->extend('updateFeedFields', $url, $this);
 
         $client = new Client();
         $options = [
@@ -217,10 +219,11 @@ class FacebookFeed extends DataObject
                         $posted['year'] . '-' . $posted['month'] . '-' . $posted['day'] . ' ' . $posted['hour'] . ':' . $posted['minute'] . ':' . $posted['second']
                     ),
                 ]));
+
+                $this->extend('updateFeedPosts', $posts, $feed);
             }
 
             return $posts;
         }
     }
-
 }

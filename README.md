@@ -30,10 +30,26 @@ DropdownField::create('FacebookFeedID','Select a feed:', FacebookFeed::get()->ma
 
 
 // Calling the Feed in the template
-$GetFacebookFeed($FacebookFeedID)
+<% with $FacebookFeed %>
+    <% loop $Feed %>
+        {Post details go here}
+    <% end_loop %>
+<% end_with %>
 
 ````
+### A list of fields retrieved by default:
+* User
+* Link
+* ProfileLink
+* Image
+* Message
+* Posted
 
+More optional fields can be found here: https://developers.facebook.com/docs/graph-api/reference/v4.0/page/feed#readfields
+
+### Available extension hooks
+* updateFeedFields = Alter the URL used to add or remove fields from the API call
+* updateFeedPosts  = Make changes to the final ArrayList of posts before it's returned
 
 ## TODO
 More bug testing

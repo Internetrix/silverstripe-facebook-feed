@@ -1,6 +1,0 @@
----
-name: facebookfeed
----
-PageController:
-  extensions:
-  - Dexven\FacebookFeed\Extensions\FeedControllerExtension
