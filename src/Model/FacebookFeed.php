@@ -29,7 +29,7 @@ class FacebookFeed extends DataObject
         'RegenerateToken'       => 'Boolean'
     ];
 
-    private static $table_name = 'FacebookFeed_FacebookFeed';
+    private static $table_name = 'Dexven_FacebookFeed';
 
     private static $summary_fields = [
         'Title' 	            => 'Feed',
@@ -39,14 +39,6 @@ class FacebookFeed extends DataObject
     private static $defaults = [
         'RegenerateToken' 	    => true
     ];
-
-//    private static $has_one = [
-//        'Parent'                => DataObject::class
-//    ];
-
-//    private static $has_many = [
-//        'Parents'               => DataObject::class
-//    ];
 
     public function getCMSFields()
     {
