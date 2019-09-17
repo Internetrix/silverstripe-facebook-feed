@@ -14,8 +14,8 @@
       "issues": "https://github.com/Dexven/silverstripe-facebook-feed/issues"
   },
   "require": {
-      "silverstripe/framework": "^4",
-      "silverstripe/cms": "^4",
+      "silverstripe/framework": ">=3.0 <4.0",
+      "silverstripe/cms": ">=3.0 <4.0",
       "guzzlehttp/guzzle": "^6.3"
   },
   "require-dev": {
