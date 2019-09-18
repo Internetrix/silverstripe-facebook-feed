@@ -1,6 +1,6 @@
 <?php
 
-namespace Dexven\FacebookFeed\Model;
+namespace Internetrix\FacebookFeed\Model;
 
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\LiteralField;
@@ -14,7 +14,7 @@ use SilverStripe\View\ArrayData;
 
 /**
  * Class FacebookFeed
- * @package Dexven\FacebookFeed\Model
+ * @package Internetrix\FacebookFeed\Model
  */
 class FacebookFeed extends DataObject
 {
@@ -29,7 +29,7 @@ class FacebookFeed extends DataObject
         'RegenerateToken'       => 'Boolean'
     ];
 
-    private static $table_name = 'Dexven_FacebookFeed';
+    private static $table_name = 'IRX_FacebookFeed';
 
     private static $summary_fields = [
         'Title' 	            => 'Feed',
