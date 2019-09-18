@@ -16,7 +16,7 @@
   "require": {
     "silverstripe/framework": ">=3.0 <4.0",
     "silverstripe/cms": ">=3.0 <4.0",
-    "guzzlehttp/guzzle": "^6.3"
+    "guzzlehttp/guzzle": "~6.0"
   },
   "extra": {
     "installer-name": "silverstripe-facebook-feed"
