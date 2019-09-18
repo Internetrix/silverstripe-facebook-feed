@@ -1,8 +1,8 @@
 <?php
 
-namespace Dexven\FacebookFeed\Admin;
+namespace Internetrix\FacebookFeed\Admin;
 
-use Dexven\FacebookFeed\Model\FacebookFeed;
+use Internetrix\FacebookFeed\Model\FacebookFeed;
 use SilverStripe\Admin\ModelAdmin;
 
 class FeedManager extends ModelAdmin
