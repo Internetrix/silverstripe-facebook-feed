@@ -1,10 +1,5 @@
 <?php
 
-namespace Dexven\FacebookFeed\Admin;
-
-use Dexven\FacebookFeed\Model\FacebookFeed;
-use SilverStripe\Admin\ModelAdmin;
-
 class FeedManager extends ModelAdmin
 {
     private static $menu_title = 'Facebook Feeds';
@@ -14,7 +9,7 @@ class FeedManager extends ModelAdmin
     private static $menu_icon_class = 'font-icon-picture';
 
     private static $managed_models = [
-        FacebookFeed::class
+        'FacebookFeed'
     ];
 
     public function subsiteCMSShowInMenu()

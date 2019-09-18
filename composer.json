@@ -1,34 +1,25 @@
 {
   "name": "dexven/silverstripe-facebook-feed",
   "description": "Allows creation of permanent Facebook access tokens to be used in the display of social media feeds.",
-  "type": "silverstripe-vendormodule",
+  "type": "silverstripe-module",
   "homepage": "https://github.com/Dexven/silverstripe-facebook-feed",
   "keywords": [
-      "silverstripe",
-      "module",
-      "facebook",
-      "feed"
+    "silverstripe",
+    "module",
+    "facebook",
+    "feed"
   ],
   "license": "BSD-3-Clause",
   "support": {
-      "issues": "https://github.com/Dexven/silverstripe-facebook-feed/issues"
+    "issues": "https://github.com/Dexven/silverstripe-facebook-feed/issues"
   },
   "require": {
-      "silverstripe/framework": ">=3.0 <4.0",
-      "silverstripe/cms": ">=3.0 <4.0",
-      "guzzlehttp/guzzle": "^6.3"
-  },
-  "require-dev": {
-      "phpunit/phpunit": "^5.7",
-      "squizlabs/php_codesniffer": "^3.0"
+    "silverstripe/framework": ">=3.0 <4.0",
+    "silverstripe/cms": ">=3.0 <4.0",
+    "guzzlehttp/guzzle": "^6.3"
   },
   "extra": {
-      "installer-name": "silverstripe-facebook-feed"
-  },
-  "autoload": {
-      "psr-4": {
-          "Dexven\\FacebookFeed\\": "src/"
-      }
+    "installer-name": "silverstripe-facebook-feed"
   },
   "prefer-stable": true,
   "minimum-stability": "dev"
