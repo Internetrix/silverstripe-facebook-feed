@@ -140,7 +140,7 @@ class FacebookFeed extends DataObject
         return null;
     }
 
-    public function getFeed()
+    public function getFeed($limit = null)
     {
         $url = 'https://graph.facebook.com/v4.0/' . $this->UserID . '/feed?fields=from,permalink_url,full_picture,message,created_time,place,to&limit=50&access_token=' . $this->PermanentAccessToken;
 
@@ -201,7 +201,11 @@ class FacebookFeed extends DataObject
                 $this->extend('updateFeedPosts', $posts, $feed);
             }
 
-            return $posts;
+            if ($limit) {
+                return $posts->limit($limit);
+            } else {
+                return $posts;
+            }
         }
     }
 }
