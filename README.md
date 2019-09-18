@@ -13,7 +13,7 @@ If you would like to view how this process works, please visit: https://stackove
 ## Installation
 
 ```
-composer require dexven/silverstripe-facebook-feed
+composer require internetrix/silverstripe-facebook-feed
 ```
 
 ## Quickstart
