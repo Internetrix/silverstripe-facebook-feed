@@ -126,7 +126,7 @@ class FacebookFeed extends DataObject
     public function CreatePermanentAccessToken()
     {
         if ($this->ID && $this->LongAccessToken) {
-            $url = "https://graph.facebook.com/me/accounts?access_token=" . $this->LongAccessToken;
+            $url = "https://graph.facebook.com/" . $this->UserID . "?fields=access_token&access_token=" . $this->LongAccessToken;
 
             $service = new Client();
             $options = [CURLOPT_SSL_VERIFYPEER => false];
@@ -143,10 +143,8 @@ class FacebookFeed extends DataObject
                     return;
                 }
             } else {
-                foreach ($feed['data'] as $data) {
-                    if ($data['id'] == $this->UserID) {
-                        return $data['access_token'];
-                    }
+                if ($feed['access_token']) {
+                    return $feed['access_token'];
                 }
             }
         }
@@ -154,7 +152,7 @@ class FacebookFeed extends DataObject
         return null;
     }
 
-    public function getFeed()
+    public function getFeed($limit = null)
     {
         $url = 'https://graph.facebook.com/v4.0/' . $this->UserID . '/feed?fields=from,permalink_url,full_picture,message,created_time,place,to&limit=50&access_token=' . $this->PermanentAccessToken;
 
@@ -215,7 +213,11 @@ class FacebookFeed extends DataObject
                 $this->extend('updateFeedPosts', $posts, $feed);
             }
 
-            return $posts;
+            if ($limit) {
+                return $posts->limit($limit);
+            } else {
+                return $posts;
+            }
         }
     }
 }
