@@ -1,8 +1,8 @@
 {
-  "name": "dexven/silverstripe-facebook-feed",
+  "name": "internetrix/silverstripe-facebook-feed",
   "description": "Allows creation of permanent Facebook access tokens to be used in the display of social media feeds.",
   "type": "silverstripe-module",
-  "homepage": "https://github.com/Dexven/silverstripe-facebook-feed",
+  "homepage": "https://github.com/Internetrix/silverstripe-facebook-feed",
   "keywords": [
     "silverstripe",
     "module",
@@ -11,7 +11,7 @@
   ],
   "license": "BSD-3-Clause",
   "support": {
-    "issues": "https://github.com/Dexven/silverstripe-facebook-feed/issues"
+    "issues": "https://github.com/Internetrix/silverstripe-facebook-feed/issues"
   },
   "require": {
     "silverstripe/framework": ">=3.0 <4.0",
